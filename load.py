@@ -8,7 +8,6 @@ def carregar_dados(df: pd.DataFrame, data_referencia: str, db_path: str = 'meu_b
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         
-        # 1. Cria a tabela com a nova estrutura de cotacoes
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS cotacoes_mercado (
                 codigo TEXT,
@@ -22,7 +21,6 @@ def carregar_dados(df: pd.DataFrame, data_referencia: str, db_path: str = 'meu_b
             )
         ''')
         
-        # 2. Idempotencia: remove dados da mesma data antes de reinserir
         logging.info(f"[LOAD] Removendo registros antigos da data {data_referencia}...")
         cursor.execute("DELETE FROM cotacoes_mercado WHERE data_consulta = ?", (data_referencia,))
         
