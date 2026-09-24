@@ -9,7 +9,7 @@ st.title("📊 Painel de Cotações de Moedas")
 st.write("Visualização dos dados extraídos automaticamente pelo nosso pipeline.")
 
 # 2. Conectar ao banco e ler os dados
-@st.cache_data 
+@st.cache_data (ttl=600)
 def carregar_dados():
     try:
         conn = sqlite3.connect("meu_banco.db")
