@@ -24,12 +24,20 @@ def executar_pipeline(data_referencia: str):
         carregar_dados(df_tratado, data_referencia)
         
         logging.info("=== PIPELINE DE COTACOES CONCLUIDO ===")
+        texto_cotacoes = ""
+        for indice, linha in df_bruto.iterrows():
+            moeda = linha['codigo'].replace('BRL', '') 
+            valor = linha['cotacao_compra']
+            
+            texto_cotacoes += f"🔹 {moeda}: R$ {valor:,.2f}\n"
         
         # 4. Notificação de Sucesso
         msg_sucesso = (
             "🚀 *NOVA CARGA DE DADOS!*\n\n"
             f"📅 *Data:* `{data_referencia}`\n"
             f"💰 *Cotações Salvas:* {len(df_tratado)} moedas\n"
+            f"💰 *Valores Obtidos:*\n"
+            f"{texto_cotacoes}\n"
             "📊 *Status:* Tudo rodou perfeitamente no servidor!"
         )
         enviar_notificacao_telegram(msg_sucesso)
