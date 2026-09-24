@@ -1,0 +1,29 @@
+name: Pipeline Diario de Cotacoes
+
+on:
+  schedule:
+  
+    - cron: '0 11 * * *'
+  
+
+  workflow_dispatch: 
+
+
+jobs:
+  executar-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Pegar os arquivos do repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Instalar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 3. Instalar as bibliotecas necessarias
+        run: pip install -r requirements.txt
+
+      - name: 4. Rodar o Pipeline (sem passar data, usando o dia de hoje)
+        run: python main.py
