@@ -20,4 +20,4 @@ def transformar_dados(df: pd.DataFrame) -> pd.DataFrame:
     df_tratado['status_oscilacao'] = df_tratado['variacao_percentual'].apply(classificar_oscilacao)
     
     logging.info(f"[TRANSFORM] {len(df_tratado)} registros transformados e enriquecidos.")
-    return df_tratado
+    return df_tratado 

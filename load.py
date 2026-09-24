@@ -24,7 +24,7 @@ def carregar_dados(df: pd.DataFrame, data_referencia: str, db_path: str = 'meu_b
         logging.info(f"[LOAD] Removendo registros antigos da data {data_referencia}...")
         cursor.execute("DELETE FROM cotacoes_mercado WHERE data_consulta = ?", (data_referencia,))
         
-        # 3. Insere os registros processados
+        
         logging.info("[LOAD] Gravando cotacoes tratadas no banco...")
         df.to_sql('cotacoes_mercado', conn, if_exists='append', index=False)
         
