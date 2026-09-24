@@ -18,10 +18,9 @@ def extrair_dados(data_referencia: str) -> pd.DataFrame:
         dados_json = response.json()
         
     except requests.exceptions.HTTPError as e:
-        
+   
         if e.response is not None and e.response.status_code == 429:
-            logging.warning("[EXTRACT] Alerta 429: API bloqueou o IP do GitHub.")
-            logging.warning("[EXTRACT] Ativando dados de fallback para salvar o pipeline...")
+            logging.warning("[EXTRACT] Alerta 429: API bloqueou o IP. Usando dados de resgate.")
             dados_json = {
                 "USDBRL": {"name": "Dólar Americano/Real Brasileiro", "bid": "5.00", "ask": "5.01", "pctChange": "0.0"},
                 "EURBRL": {"name": "Euro/Real Brasileiro", "bid": "5.30", "ask": "5.31", "pctChange": "0.0"},
