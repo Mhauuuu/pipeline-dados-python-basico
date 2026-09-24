@@ -1,4 +1,6 @@
+import argparse
 import logging
+from datetime import datetime
 from extract import extrair_dados
 from transform import transformar_dados
 from load import carregar_dados
@@ -26,5 +28,17 @@ def executar_pipeline(data_referencia: str):
         raise e
 
 if __name__ == "__main__":
-    data_hoje = "2026-09-23"
-    executar_pipeline(data_hoje)
+    
+    parser = argparse.ArgumentParser(description="Pipeline de Cotações Financeiras")
+    parser.add_argument('--data', type=str, help="Data no formato YYYY-MM-DD", required=False)
+    args = parser.parse_args()
+
+    
+    if args.data:
+        
+        data_execucao = args.data
+    else:
+        
+        data_execucao = datetime.now().strftime("%Y-%m-%d")
+
+    executar_pipeline(data_execucao)
