@@ -26,17 +26,25 @@ def executar_pipeline(data_referencia: str):
         logging.info("=== PIPELINE DE COTACOES CONCLUIDO ===")
         
         # 4. Notificação de Sucesso
-        msg_sucesso = f"✅ *Pipeline Finalizado!*\nData ref: `{data_referencia}`\nRegistros processados: {len(df_tratado)}"
+        msg_sucesso = (
+            "🚀 *NOVA CARGA DE DADOS!*\n\n"
+            f"📅 *Data:* `{data_referencia}`\n"
+            f"💰 *Cotações Salvas:* {len(df_tratado)} moedas\n"
+            "📊 *Status:* Tudo rodou perfeitamente no servidor!"
+        )
         enviar_notificacao_telegram(msg_sucesso)
 
     except Exception as e:
         logging.error(f"Falha na execucao: {e}")
         
         # 4. Notificação de Falha
-        msg_erro = f"❌ *Erro no Pipeline!*\nData ref: `{data_referencia}`\nDetalhe: `{e}`"
+        msg_erro = (
+            "🚨 *ALERTA VERMELHO NO PIPELINE!*\n\n"
+            f"📅 *Data:* `{data_referencia}`\n"
+            f"💥 *O que quebrou:* `{e}`\n"
+            "🛠️ Hora de abrir o GitHub e investigar o log!"
+        )
         enviar_notificacao_telegram(msg_erro)
-        
-        raise e
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pipeline de Cotações Financeiras")
